@@ -7,14 +7,14 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 def graph(data_file):
-    df = pd.read_csv(data_file,)
+    df = pd.read_csv(data_file, index_col='time')
     
     fig, axes = plt.subplots(nrows=5, ncols=1)
     fig.set_size_inches((10, 15))
     fig.set_layout_engine('tight')
 
     fig.text(.5, 1.02, data_file, transform=fig.transFigure, horizontalalignment='center', fontsize=20)
-    time = df.loc[df.index[-1], 'time'] - df.loc[df.index[0], 'time']
+    time = df.index[-1] - df.index[0]
     fig.text(.5, 1, f'{len(df)} packets, {round(time, 1)} secondes', transform=fig.transFigure, horizontalalignment='center', fontsize=15)
 
     df[['accX', 'accY', 'accZ']].plot(title='Accélération', grid=True, ax=axes[0])
